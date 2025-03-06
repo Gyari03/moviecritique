@@ -6,7 +6,18 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
-  "author": "",
+  "author": "Gyarmathy Gábor",
   "license": "ISC",
-  "description": ""
+  "description": "Movie critique app",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Gyari03/moviecritique.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Gyari03/moviecritique/issues"
+  },
+  "homepage": "https://github.com/Gyari03/moviecritique#readme",
+  "dependencies": {
+    "express": "^4.21.2"
+  }
 }
