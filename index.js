@@ -3,10 +3,13 @@ const app = express();
 
 require('dotenv').config({path:'example.env'});
 
-const subscribeToRoutes = require('./routing/routes.js');
-const connectDB = require('./config/db');
+app.set('view engine', 'ejs');
 
-app.use(express.static('public'));
+const subscribeToRoutes = require('./routing/routes.js');
+const {connectDB} = require('./config/db');
+
+//app.use(express.static('public'));
+app.use(express.static('static'));
 subscribeToRoutes(app);
 
 const PORT = process.env.PORT;

@@ -1,0 +1,34 @@
+<%- include('header') %>
+
+<div class="main">
+    <div class="input-group">
+        <input id="search">
+        <button id="search_button">Search</button>
+        <a href="../views/createmovie.ejs"><button>Add new movie</button></a>
+    </div>
+
+    <div class="movie-table">
+        <table>
+            <tr>
+
+                <td><a href="../views/movie.ejs">Skibdi Toilet: The movie</a></td>
+                <td>9.92</td>
+                <td>
+                    <a href="../views/modifymovie.ejs"><button class="modify-button">Modify</button></a>
+                    <button class="delete-button">Delete</button>
+                </td>
+
+            </tr>
+            <tr>
+                <td><a href="../views/movie.ejs">Skibidi Toilet: The last toilet</a></td>
+                <td>9.31</td>
+                <td>
+                    <a href="../views/modifymovie.ejs"><button class="modify-button">Modify</button></a>
+                    <button class="delete-button">Delete</button>
+                </td>
+            </tr>
+        </table>
+    </div>
+</div>
+
+<%- include('footer') %>

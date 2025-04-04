@@ -1,9 +1,10 @@
 /**
  * html-t ad ki magából
  * @param objRepo
+ * @param view
  */
-module.exports = (objRepo) => {
+module.exports = (objRepo, view) => {
     return (req, res, next) => {
-        return next();
+        res.render(view,{});
     }
 }
