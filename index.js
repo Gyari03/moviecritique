@@ -1,9 +1,15 @@
 const express = require('express');
 const app = express();
 
+require('dotenv').config({path:'example.env'});
+
 const subscribeToRoutes = require('./routing/routes.js');
+const connectDB = require('./config/db');
 
 app.use(express.static('public'));
 subscribeToRoutes(app);
 
-app.listen(3000,()=>{console.log("Listening on port 3000")})
+const PORT = process.env.PORT;
+
+connectDB();
+app.listen(PORT,()=>{console.log(`Listening on port ${PORT}`)})
