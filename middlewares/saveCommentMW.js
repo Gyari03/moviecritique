@@ -3,7 +3,7 @@
  * @param objRepo
  */
 module.exports = (objRepo) => {
-    (req, res, next) => {
+    return (req, res, next) => {
         return next();
     }
 }

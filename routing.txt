@@ -24,7 +24,7 @@ GET  /login                  login form
     renderMW(login.html)
 
 POST /login                  login form beküldésének az értelmezése
-    loginMw
+    loginMW
 
 GET  /movie/:id              az :id idval ellátott film
     authMW
