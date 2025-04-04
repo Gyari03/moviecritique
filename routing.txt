@@ -1,0 +1,64 @@
+
+authMW: ha nincs belépve a user, akkor átírányítom /login-ra, ha be van lépve next-et hívok
+deleteMovieMW: törli a filmet az adatbázisból és átirányítja a usert a /-re
+checkLoginMW: ha a user be van lépve, ne tudjon a /login oldalra menni, hanem /-re kerül
+loginMW: belépteti a user-t ha helyes adatokat ad meg
+logoutMW: kilépteti a user-t
+saveCommentMW: Kell egy pontszámnak lennie 1-10-ig és egy nem-üres szövegnek lennie + lementi a db-be
+loadMovieMW: DB-ből movie ki + kommentjei, ha nemlétezik redirect /-re, next-et hívok
+renderMW: html-t ad ki magából
+loadMoviesMW: DB-ből minden movie-t betölt
+saveMovieMW: menti az adatokat az adatbázisba
+loadProfileMW: DB-ből profilt betölt
+editProfileMW: editeli a profilt
+
+
+
+GET  /                       táblázat a filmekről
+    authMW
+    loadMoviesMW
+    renderMW(tables.html + db-ből betöltött filmek)
+
+GET  /login                  login form
+    checkLoginMW
+    renderMW(login.html)
+
+POST /login                  login form beküldésének az értelmezése
+    loginMw
+
+GET  /movie/:id              az :id idval ellátott film
+    authMW
+    renderMW(movie.html)
+
+POST /movie/:id/delete       törli a filmet
+    authMW
+    deleteMovieMW
+
+GET  /movie/:id/edit         film szerkesztő megnyitása
+    authMW
+    renderMW(modifymovie.html)
+
+POST /movie/:id/edit         film szerkesztésének beküldése
+    authMW
+    saveMovieMW
+
+POST /movie/:id/comment      komment hozzáadása a filmhez
+    authMW
+    saveCommentMW
+
+GET  /movie/new              új film hozzáadása
+    authMW
+    renderMW(createmovie.html)
+
+POST /logout                 kilépteti a user-t
+    authMW
+    logoutMW
+
+GET  /profile                megmutatja a profilját a usernek
+    authMW
+    renderMW(profile.html)
+
+POST /profile/edit           editeli a profilt
+    authMW
+    editProfileMW
+
