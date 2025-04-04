@@ -1,6 +1,7 @@
 <%- include('header') %>
 
 <div class="main">
+    <form action="/login" method="POST">
     <div class="input-group">
         <label for="username">Username</label>
         <input id="username" >
@@ -8,14 +9,15 @@
     <div class="input-group">
         <label for="password">Password</label>
         <input id="password" type="password" >
-        <a href="tables.ejs"><button id="submit">submit</button></a>
+        <button id="submit">submit</button>
+    </div>
+    </form>
+    <div>
+        No accounts yet? <a href="/register">Register here</a>
+    </div>
 
-    </div>
     <div>
-        No accounts yet? <a href="register.ejs">Register here</a>
-    </div>
-    <div>
-        Forgot your password? You idiot <a href="../views/forgotpassword.ejs">click here</a>
+        Forgot your password? You idiot <a href="/forgot-password">click here</a>
     </div>
 
 </div>

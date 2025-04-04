@@ -1,21 +1,24 @@
 <%- include('header') %>
 <div class="movie-creation">
-  <button type="button">Explode</button>
+
   <h2>Create New Movie</h2>
+
+  <form action="/movie/new" method="POST">
     <div class="input-group">
       <label for="title">Movie Title:</label>
-      <input type="text" id="title" name="title">
+      <input type="text" id="title" name="Title">
     </div>
     <div class="input-group">
     <label for="genre">Genre:</label>
-      <input type="text" id="genre" name="genre">
+      <input type="text" id="genre" name="Genre">
     </div>
     <div class="input-group">
       <label for="director">Director:</label>
-      <input type="text" id="director" name="director">
+      <input type="text" id="director" name="Director">
     </div>
 
-    <a href="tables.html"><button type="submit">Submit</button></a>
+    <button type="submit">Submit</button>
+  </form>
 </div>
 
 <%- include('footer') %>

@@ -1,32 +1,25 @@
 <%- include('header') %>
 
+
 <div class="main">
     <div class="input-group">
         <input id="search">
         <button id="search_button">Search</button>
-        <a href="../views/createmovie.ejs"><button>Add new movie</button></a>
+        <a href="/movie/new"><button>Add new movie</button></a>
     </div>
 
     <div class="movie-table">
         <table>
+            <% for(let i=0;i<movies.length;i++){ let movie = movies[i] %>
             <tr>
-
-                <td><a href="../views/movie.ejs">Skibdi Toilet: The movie</a></td>
-                <td>9.92</td>
+                <td><a href="../views/movie.ejs"> <%= movie.Title %></a></td>
+                <td> <%= movie.Score %>/10 </td>
                 <td>
-                    <a href="../views/modifymovie.ejs"><button class="modify-button">Modify</button></a>
-                    <button class="delete-button">Delete</button>
-                </td>
-
-            </tr>
-            <tr>
-                <td><a href="../views/movie.ejs">Skibidi Toilet: The last toilet</a></td>
-                <td>9.31</td>
-                <td>
-                    <a href="../views/modifymovie.ejs"><button class="modify-button">Modify</button></a>
-                    <button class="delete-button">Delete</button>
+                    <a href="/movie/<%=movie._id%>/edit"><button class="modify-button">Modify</button></a>
+                    <a href="/movie/<%=movie._id%>/delete"><button class="delete-button">Delete</button></a>
                 </td>
             </tr>
+            <% }%>
         </table>
     </div>
 </div>
