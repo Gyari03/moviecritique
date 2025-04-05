@@ -6,6 +6,6 @@ module.exports = (objRepo) => {
     return (req, res, next) => {
         const {Email} = req.body;
         console.log(`Elfelejtett jelszo emailje: ${Email}`);
-        return next();
+        return res.redirect('/login');
     }
 }
