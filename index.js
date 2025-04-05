@@ -1,13 +1,21 @@
 const express = require('express');
 const app = express();
-//const session = require("express-session");
+const session = require("express-session");
+require('dotenv').config({path:'example.env'});
 
-//app.use(session());
+app.use(session({
+    secret:process.env.SESSION_SECRET,
+    saveUninitialized: false,
+    resave: false,
+    cookie:{
+        secure: false,
+        maxAge: 3200000,
+    }
+}));
 
 app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
 
-require('dotenv').config({path:'example.env'});
+app.use(express.urlencoded({ extended: true }));
 
 app.set('view engine', 'ejs');
 

@@ -3,7 +3,7 @@
 <div class="movie-modify">
   <h2>Modify Movie</h2>
 
-  <form action="/movie/:id/edit" method="POST">
+  <form action="/movie/<%=movie._id%>/edit" method="POST">
   <div class="input-group">
     <label for="title">Movie Title:</label>
     <input type="text" id="title" name="Title" value="<%= movie.Title %>">

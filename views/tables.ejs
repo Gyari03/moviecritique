@@ -12,7 +12,7 @@
         <table>
             <% for(let i=0;i<movies.length;i++){ let movie = movies[i] %>
             <tr>
-                <td><a href="../views/movie.ejs"> <%= movie.Title %></a></td>
+                <td><a href="/movie/<%=movie._id%>"> <%= movie.Title %></a></td>
                 <td> <%= movie.Score %>/10 </td>
                 <td>
                     <a href="/movie/<%=movie._id%>/edit"><button class="modify-button">Modify</button></a>

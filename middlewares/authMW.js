@@ -4,6 +4,9 @@
  */
 module.exports = (objRepo) => {
     return (req, res, next) => {
+        if(!req.session.user){
+            return res.redirect('/login');
+        }
         return next();
     }
 }

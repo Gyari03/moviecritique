@@ -3,11 +3,11 @@
  * @param objRepo
  */
 module.exports = (objRepo) => {
-    const {MovieModel} = objRepo;
+    const {ReviewModel} = objRepo;
     return async (req, res, next) => {
-        const movies = await MovieModel.find({});
+        const comments = await ReviewModel.find({});
 
-        res.locals.movies = movies;
+        res.locals.comments = comments;
         return next();
     }
 }

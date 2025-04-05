@@ -3,12 +3,15 @@
  * @param objRepo
  */
 module.exports = (objRepo) => {
-    return (req, res, next) => {
+    const {UserModel} = objRepo;
+    return async (req, res, next) => {
+        const userId= req.session.user.id;
+        const user = await UserModel.findById(userId);
+
         res.locals.profile = {
-            _id: 12321847,
-            Email: "Józsi@bme.hu",
-            Username: "Jozsika123",
-            Password: "rockyou"
+            _id: user._id,
+            Email: user.Email,
+            Username: user.Username,
         }
         return next();
     }

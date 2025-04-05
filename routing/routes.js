@@ -12,6 +12,7 @@ const renderMW = require('../middlewares/renderMW');
 const saveCommentMW = require('../middlewares/saveCommentMW');
 const saveMovieMW = require('../middlewares/saveMovieMW');
 const forgotPasswordMW = require('../middlewares/forgotPasswordMW');
+const loadCommentsMW = require('../middlewares/loadCommentsMW');
 
 const MovieModel = require("../models/movie");
 const ReviewModel = require("../models/review");
@@ -24,8 +25,8 @@ function subscribeToRoutes(app){
         UserModel,
     };
 
-    app.get('/login',checkLoginMW(objRepo),renderMW(objRepo,'login'));
-    app.post('/login',loginMW(objRepo));
+    app.get('/login',checkLoginMW(objRepo),renderMW(objRepo,'login')); //kész
+    app.post('/login',loginMW(objRepo)); //kész
 
     app.get('/register',checkLoginMW(objRepo),renderMW(objRepo,'register')); //kész
     app.post('/register',registerProfileMW(objRepo)); //kész
@@ -36,17 +37,17 @@ function subscribeToRoutes(app){
     app.get('/movie/new',authMW(objRepo),renderMW(objRepo,'createmovie')); //kész
     app.post('/movie/new',authMW(objRepo),saveMovieMW(objRepo))  //kész
 
-    app.get('/movie/:id/edit',authMW(objRepo),loadMovieMW(objRepo),renderMW(objRepo,'modifymovie'));
-    app.post('/movie/:id/edit',authMW(objRepo),saveMovieMW(objRepo));
-    app.post('/movie/:id/comment',authMW(objRepo),saveCommentMW(objRepo));
-    app.post('/movie/:id/delete',authMW(objRepo),deleteMovieMW(objRepo));
-    app.get('/movie/:id',authMW(objRepo),renderMW(objRepo,'movie'));
+    app.get('/movie/:id/edit',authMW(objRepo),loadMovieMW(objRepo),renderMW(objRepo,'modifymovie')); //kész
+    app.post('/movie/:id/edit',authMW(objRepo),saveMovieMW(objRepo)); //kész
+    app.post('/movie/:id/comment',authMW(objRepo),saveCommentMW(objRepo)); //TODO: egyedül ő is a komment betöltés nincsen készen + TODO: átlagszámitás middleware
+    app.get('/movie/:id/delete',authMW(objRepo),deleteMovieMW(objRepo));  //kész
+    app.get('/movie/:id',authMW(objRepo),loadMovieMW(objRepo),loadCommentsMW(objRepo),renderMW(objRepo,'movie')); //kész TODO: de kommentek betöltésénél meg kell csinálni hogy csak a sajátjait töltse be
 
-    app.post('/logout',authMW(objRepo),logoutMW(objRepo));
-    app.get('/profile',authMW(objRepo),loadProfileMW(objRepo),renderMW(objRepo,'profile'));
-    app.post('/profile/edit',authMW(objRepo),editprofileMW(objRepo));
+    app.post('/logout',authMW(objRepo),logoutMW(objRepo)); //kész
+    app.get('/profile',authMW(objRepo),loadProfileMW(objRepo),renderMW(objRepo,'profile')); //kész
+    app.post('/profile/edit',authMW(objRepo),editprofileMW(objRepo)); //kész
 
-    app.get('/',authMW(objRepo),loadMoviesMW(objRepo),renderMW(objRepo,'tables'));
+    app.get('/',authMW(objRepo),loadMoviesMW(objRepo),renderMW(objRepo,'tables')); //kész
 
     app.use((req, res, next) => {
         res.status(404);

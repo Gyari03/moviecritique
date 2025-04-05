@@ -3,14 +3,11 @@
  * @param objRepo
  */
 module.exports = (objRepo) => {
-    return (req, res, next) => {
-        res.locals.movie = {
-            _id: '11111111111111',
-            Title: 'Breaking bad',
-            Genre: 'Cooking show',
-            Director: 'Vince Gilligan',
-            Score: 10
-        }
+    const {MovieModel} = objRepo;
+    return async (req, res, next) => {
+        const {id} = req.params;
+        const movie = await MovieModel.findById(id);
+        res.locals.movie = movie;
         return next();
     }
 }

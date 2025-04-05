@@ -9,14 +9,21 @@ module.exports = (objRepo) => {
 
     return async (req, res, next) => {
         const {Title, Genre, Director } = req.body;
-        const movieId = req.params.id;
+        const {id} = req.params;
+        console.log(id);
 
         if(!Title || !Genre || !Director){
             return res.status(400).send(`<img src="https://http.cat/400.jpg" alt="400 Bad Request">`);
         }
+        console.log(Title,Genre,Director);
         try{
-            if(movieId){
-                await MovieModel.findByIdAndUpdate(movieId,{Title,Genre,Director});
+            if(id){
+                const movie = await MovieModel.findById(id);
+                movie.Title = Title;
+                movie.Genre = Genre;
+                movie.Director = Director;
+                await movie.save();
+
             }else{
                 const newMovie = new MovieModel({Title,Genre,Director});
                 await newMovie.save();

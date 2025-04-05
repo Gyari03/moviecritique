@@ -3,7 +3,10 @@
  * @param objRepo
  */
 module.exports = (objRepo) => {
-    return (req, res, next) => {
-        return next();
+    const {MovieModel} = objRepo;
+    return async (req, res, next) => {
+        const {id} = req.params;
+        await MovieModel.findByIdAndDelete(id);
+        return res.redirect("/");
     }
 }
