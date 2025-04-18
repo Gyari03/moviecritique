@@ -10,7 +10,7 @@ module.exports = (objRepo) => {
     return async (req, res, next) => {
         const {Title, Genre, Director } = req.body;
         const {id} = req.params;
-        console.log(id);
+        //console.log(id);
 
         if(!Title || !Genre || !Director){
             return res.status(400).send(`<img src="https://http.cat/400.jpg" alt="400 Bad Request">`);

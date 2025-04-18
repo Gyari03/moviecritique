@@ -5,7 +5,8 @@
 module.exports = (objRepo) => {
     const {ReviewModel} = objRepo;
     return async (req, res, next) => {
-        const comments = await ReviewModel.find({});
+        const movieId = req.params.id;
+        const comments = await ReviewModel.find({movie:movieId}).populate("user");
 
         res.locals.comments = comments;
         return next();

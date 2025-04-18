@@ -13,6 +13,7 @@ const saveCommentMW = require('../middlewares/saveCommentMW');
 const saveMovieMW = require('../middlewares/saveMovieMW');
 const forgotPasswordMW = require('../middlewares/forgotPasswordMW');
 const loadCommentsMW = require('../middlewares/loadCommentsMW');
+const updateScoreMW = require('../middlewares/updateScoreMW');
 
 const MovieModel = require("../models/movie");
 const ReviewModel = require("../models/review");
@@ -39,9 +40,9 @@ function subscribeToRoutes(app){
 
     app.get('/movie/:id/edit',authMW(objRepo),loadMovieMW(objRepo),renderMW(objRepo,'modifymovie')); //kész
     app.post('/movie/:id/edit',authMW(objRepo),saveMovieMW(objRepo)); //kész
-    app.post('/movie/:id/comment',authMW(objRepo),saveCommentMW(objRepo)); //TODO: egyedül ő is a komment betöltés nincsen készen + TODO: átlagszámitás middleware
+    app.post('/movie/:id/comment',authMW(objRepo),saveCommentMW(objRepo),updateScoreMW(objRepo)); //kész
     app.get('/movie/:id/delete',authMW(objRepo),deleteMovieMW(objRepo));  //kész
-    app.get('/movie/:id',authMW(objRepo),loadMovieMW(objRepo),loadCommentsMW(objRepo),renderMW(objRepo,'movie')); //kész TODO: de kommentek betöltésénél meg kell csinálni hogy csak a sajátjait töltse be
+    app.get('/movie/:id',authMW(objRepo),loadMovieMW(objRepo),loadCommentsMW(objRepo),renderMW(objRepo,'movie')); //kész
 
     app.post('/logout',authMW(objRepo),logoutMW(objRepo)); //kész
     app.get('/profile',authMW(objRepo),loadProfileMW(objRepo),renderMW(objRepo,'profile')); //kész
@@ -60,5 +61,6 @@ function subscribeToRoutes(app){
         return res.status(500).send(`<img src="https://http.cat/500.jpg" alt="500 Internal Server Error">`);
     });
 }
+//TODO: keresés
 
 module.exports = subscribeToRoutes;

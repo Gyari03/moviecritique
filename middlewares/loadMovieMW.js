@@ -8,6 +8,8 @@ module.exports = (objRepo) => {
         const {id} = req.params;
         const movie = await MovieModel.findById(id);
         res.locals.movie = movie;
+
+
         return next();
     }
 }
