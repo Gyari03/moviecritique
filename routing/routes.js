@@ -14,16 +14,22 @@ const saveMovieMW = require('../middlewares/saveMovieMW');
 const forgotPasswordMW = require('../middlewares/forgotPasswordMW');
 const loadCommentsMW = require('../middlewares/loadCommentsMW');
 const updateScoreMW = require('../middlewares/updateScoreMW');
+const sendForgotPasswordEmailMW = require('../middlewares/sendForgotPasswordEmailMW');
+const createResetTokenMW = require('../middlewares/createResetTokenMW');
+const resetPasswordMW = require('../middlewares/resetPasswordMW');
+const checkTokenValidityMW = require('../middlewares/checkTokenValidityMW');
 
 const MovieModel = require("../models/movie");
 const ReviewModel = require("../models/review");
 const UserModel = require("../models/user");
+const TokenModel = require("../models/resetToken");
 
 function subscribeToRoutes(app){
     const objRepo = {
         MovieModel,
         ReviewModel,
         UserModel,
+        TokenModel,
     };
 
     app.get('/login',checkLoginMW(objRepo),renderMW(objRepo,'login')); //kész
@@ -33,7 +39,9 @@ function subscribeToRoutes(app){
     app.post('/register',registerProfileMW(objRepo)); //kész
 
     app.get('/forgot-password',checkLoginMW(), renderMW(objRepo,'forgotpassword')); //kész
-    app.post('/forgot-password',forgotPasswordMW()); //kész
+    app.post('/forgot-password',createResetTokenMW(objRepo) ,sendForgotPasswordEmailMW(objRepo)); //kész //forgotPasswordMW() kiszedve mert nem kell
+    app.get('/reset-password/:token',checkTokenValidityMW(objRepo),renderMW(objRepo,'changepassword')); //check-tokenvalidity //change-password->kitörli a tokent
+    app.post('/reset-password/:token',checkTokenValidityMW(objRepo),resetPasswordMW(objRepo));
 
     app.get('/movie/new',authMW(objRepo),renderMW(objRepo,'createmovie')); //kész
     app.post('/movie/new',authMW(objRepo),saveMovieMW(objRepo))  //kész
@@ -61,6 +69,5 @@ function subscribeToRoutes(app){
         return res.status(500).send(`<img src="https://http.cat/500.jpg" alt="500 Internal Server Error">`);
     });
 }
-//TODO: keresés
 
 module.exports = subscribeToRoutes;
